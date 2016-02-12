@@ -200,12 +200,12 @@ $ DEBUG=* ghratelimit --token <token> --pretty
 # core
 #   limit: 5000
 #   remaining: 4999
-#   reset: 
+#   reset: 2016-02-12T02:11:34.000Z
 #
 # search
 #   limit: 30
 #   remaining: 30
-#   reset: 
+#   reset: 2016-02-12T01:25:28.000Z
 #
 ```
 
