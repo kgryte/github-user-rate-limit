@@ -1,6 +1,6 @@
 {
   "name": "github-user-rate-limit",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Get a user's rate limit status.",
   "author": {
     "name": "Athan Reines",
