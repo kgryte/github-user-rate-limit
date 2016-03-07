@@ -82,24 +82,28 @@ tape( 'function returns a function', function test( t ) {
 tape( 'function returns a function which returns an error to a provided callback if an error is encountered when fetching a rate limit status', function test( t ) {
 	var factory;
 	var opts;
-	var get;
+	var fcn;
 
 	factory = proxyquire( './../lib/factory.js', {
-		'@kgryte/github-get': resolve
+		'@kgryte/github-get': {
+			'factory': get
+		}
 	});
 
 	opts = getOpts();
-	get = factory( opts, done );
-	get();
+	fcn = factory( opts, done );
+	fcn();
 
-	function resolve( opts, clbk ) {
-		setTimeout( onTimeout, 0 );
-		function onTimeout() {
-			clbk({
-				'status': 404,
-				'message': 'beep'
-			});
-		}
+	function get( opts, clbk ) {
+		return function get() {
+			setTimeout( onTimeout, 0 );
+			function onTimeout() {
+				clbk({
+					'status': 404,
+					'message': 'beep'
+				});
+			}
+		};
 	}
 
 	function done( error ) {
@@ -113,23 +117,27 @@ tape( 'function returns a function which returns a rate limit status to a provid
 	var expected;
 	var factory;
 	var opts;
-	var get;
+	var fcn;
 
 	factory = proxyquire( './../lib/factory.js', {
-		'@kgryte/github-get': resolve
+		'@kgryte/github-get': {
+			'factory': get
+		}
 	});
 
 	expected = results;
 
 	opts = getOpts();
-	get = factory( opts, done );
-	get();
+	fcn = factory( opts, done );
+	fcn();
 
-	function resolve( opts, clbk ) {
-		setTimeout( onTimeout, 0 );
-		function onTimeout() {
-			clbk( null, raw );
-		}
+	function get( opts, clbk ) {
+		return function get() {
+			setTimeout( onTimeout, 0 );
+			function onTimeout() {
+				clbk( null, raw );
+			}
+		};
 	}
 
 	function done( error, data ) {
